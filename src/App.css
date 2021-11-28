@@ -1,38 +1,184 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+:root {
+   --bg-color: #232329;
+
+   --alt-color: #343439;
+
+   --hover-color: #404045;
+
+   --shadow-color: rgba(10,10,15,0.9);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+   margin: 0;
+   border: none;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Montserrat', sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.grid-container {
+   background: var(--bg-color);
+   /* width: 100vw; */
+   /* height: 100vh; */
+   /* max-width: 100vw; */
+   /* max-height: 100vh; */
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   display: grid;
+   grid-template-columns: 10vw 1fr 10vw;
+   grid-template-rows: 10vh 1fr 10vh;
+   grid-template-areas:
+   "top   top   top"
+   "bank  bank bank"
+   "clear text play";
+   grid-gap: 20px;
+   padding: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h2 {
+   color: white;
+   margin: 2vh;
+   font-weight: normal;
+   text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
 }
 
-.App-link {
-  color: #61dafb;
+.clear {
+   z-index: 3;
+   grid-area: clear;
+   background: var(--bg-color);
+   box-shadow:
+   1px 1px rgba(0,0,0,0.5),
+   -1px -1px rgba(200,200,200,0.5),
+   5px 5px 5px var(--shadow-color),
+   -3px -3px 8px rgba(150,150,200,0.4);
+   transition: filter .1s;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.clear:hover {
+   filter: brightness(130%);
+}
+button {
+   font-size: 1.5vw;
+   color: white;
+   border-radius: 5px;
+   cursor: pointer;
+}
+
+.play {
+   grid-area: play;
+   /*background: #993333;
+   */
+   z-index: 3;
+   background: linear-gradient(-45deg,hsl(40,60%,50%),hsl(0,60%,50%) 90%);
+   box-shadow:
+   1px 1px rgba(0,0,0,0.5),
+   -1px -1px rgba(255,100,100,0.9),
+   5px 5px 5px var(--shadow-color),
+   -3px -3px 8px rgba(250,50,50,0.8);
+   transition: .1s;
+}
+
+.play:hover {
+   filter: brightness(130%);
+}
+
+.word-bank {
+   overflow-y: scroll;
+   z-index: -1;
+   grid-area: bank;
+   /*box-shadow: inset 0 20px 10px -15px rgba(0,0,0,0.3);
+    */
+   border-radius: 5px;
+   padding-top: 11px;
+   text-align: center;
+}
+
+.words {
+   grid-area: text;
+   font-size: 3vh;
+   padding: 2vw;
+   border-radius: 5px;
+   box-shadow:
+   1px 1px rgba(0,0,0,0.5),
+   -1px -1px rgba(200,200,200,0.5),
+   5px 5px 5px var(--shadow-color),
+   -3px -3px 8px rgba(150,150,200,0.4);
+   z-index: 3;
+}
+
+.word {
+   background: var(--alt-color);
+   padding: 4vh;
+   margin: 1vh;
+   border-radius: 3px;
+   width: 16vw;
+   box-shadow:
+   1px 1px 1px rgba(50,50,70,.9),
+   -1px -1px 1px rgba(155,155,205,0.2),
+   5px 5px 8px var(--shadow-color),
+   -3px -3px 8px rgba(155,155,205,0.3);
+   transition: filter .1s;
+}
+
+.word:hover {
+   filter: brightness(130%);
+}
+
+.top {
+   grid-area: top;
+   color: white;
+   text-align: center;
+   padding: 4vh;
+   z-index: 2;
+   box-shadow: 0 11px 10px 20px var(--bg-color);
+   text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.top span {
+   font-size: 2.5vw;
+   font-weight: bold;
+}
+
+.unknown {
+   display: flex;
+   position: fixed;
+   width: 70vw;
+   height: 5vh;
+   left: 15vw;
+   bottom: calc(11vh + 20px);
+   background: linear-gradient(45deg,hsl(0,69%,47%),hsl(350,69%,47%));
+   border-radius: 5px;
+   z-index: -1;
+   font-size: 2vh;
+   padding-left: 1vw;
+   box-shadow:
+   -1px -1px rgba(255,0,0,0.5),
+   1px 1px rgba(0,0,0,0.5),
+   5px 5px 8px var(--shadow-color),
+   -4px -4px 8px rgba(255,0,0,0.7);
+}
+.unknown p {
+   margin: auto 0;
+   color: white;
+}
+
+.searchBox {
+   padding: 2vh;
+   position: fixed;
+   right: 2vw;
+   width: 30vw;
+   background: var(--alt-color);
+   border-radius: 5px;
+   box-shadow:
+   1px 1px 1px rgba(50,50,70,.9),
+   -1px -1px 1px rgba(155,155,205,0.2),
+   5px 5px 8px var(--shadow-color),
+   -3px -3px 8px rgba(155,155,205,0.3);
+   font-size: 1vw;
+   color: white;
 }
